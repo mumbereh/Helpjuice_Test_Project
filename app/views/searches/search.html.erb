@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Time Search Analytics</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <!-- Include any additional stylesheets or scripts here -->
+  <style>
+    /* Add your custom CSS styles here */
+  </style>
+</head>
+<body>
+  <h1>Real Time Search Analytics</h1>
+  
+  <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Search...">
+    <button type="submit">Search</button>
+  </form>
+
+  <h2>Recent Searches</h2>
+  <ul id="recentSearches">
+    <% @searches.each do |search| %>
+      <li><%= search.query %> - <%= search.created_at.strftime('%Y-%m-%d %H:%M:%S') %></li>
+    <% end %>
+  </ul>
+
+  <h2>Analytics - Top Searches</h2>
+  <ul id="topSearches">
+    <!-- Top searches will be dynamically updated by JavaScript -->
+  </ul>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('searchForm');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const query = document.getElementById('searchInput').value.trim();
+        if (query !== '') {
+          const response = await fetch('/searches', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': '<%= csrf_token %>'
+            },
+            body: JSON.stringify({ search: { query: query, ip_address: '127.0.0.1' } })
+          });
+          const data = await response.json();
+          console.log(data); // You can handle success or error responses here
+          form.reset();
+          updateTopSearches(); // Update top searches after logging
+        }
+      });
+
+      async function updateTopSearches() {
+        const response = await fetch('/analytics/top_searches');
+        const data = await response.json();
+        const topSearchesElement = document.getElementById('topSearches');
+        topSearchesElement.innerHTML = '';
+        data.top_searches.forEach(search => {
+          const li = document.createElement('li');
+          li.textContent = `${search.query} (${search.count})`;
+          topSearchesElement.appendChild(li);
+        });
+      }
+
+      // Initial fetch of top searches
+      updateTopSearches();
+    });
+  </script>
+</body>
+</html>
