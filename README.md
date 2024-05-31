@@ -20,7 +20,7 @@
 
 # 📖 Blog App <a name="about-project"></a>
 
-**[Budget App]** This Project implements a real-time search analytics application in Ruby on Rails. Users can enter search queries which are logged with their IP addresses. The application records complete search queries, ignoring incomplete entries. It includes views for displaying recent searches and top search analytics. JavaScript fetches and updates top searches dynamically. The application uses Rails models, controllers, views, routes, and ensuring scalability and performance.
+**[Real Time Project]** This Project implements a real-time search analytics application in Ruby on Rails. Users can enter search queries which are logged with their IP addresses. The application records complete search queries, ignoring incomplete entries. It includes views for displaying recent searches and top search analytics. JavaScript fetches and updates top searches dynamically. The application uses Rails models, controllers, views, routes, and ensuring scalability and performance.
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -43,7 +43,7 @@
 
 ### Key Features <a name="key-features"></a>
 
-- **This project was built with ruby & ROR**
+- **This project was built with ROR & Vanila JS**
 - **The project code is clear for future use]***
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
