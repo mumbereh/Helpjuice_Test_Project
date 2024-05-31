@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Realtime Search</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <input type="text" id="searchBox" placeholder="Type your search here...">
+  <div id="searchResults"></div>
+
+  <script>
+    $(document).ready(function() {
+      $('#searchBox').on('input', function() {
+        var query = $(this).val();
+        if (query.length > 2) { // Only send queries with length > 2
+          $.post('/search', { query: query });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
