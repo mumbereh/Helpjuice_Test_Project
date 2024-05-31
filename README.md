@@ -8,7 +8,6 @@
   - [🛠 Built With](#built-with)
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
-  - [🚀 Live Demo](#live-demo)
 - [💻 Getting Started](#getting-started))
 - [👥 Authors](#authors)
 - [🔭 Future Features](#future-features)
@@ -32,9 +31,6 @@
     <li><a href="https://vanilla.js.org/">Vanila JS</a></li>
   </ul>
 </details>
-## 🚀 Live Demo <a name="live-demo"></a>
-
-- [Live Demo Link](https://app-4n8a.onrender.com/)
 
 ## 💻 Getting Started <a name="getting-started"></a>
 
