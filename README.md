@@ -16,7 +16,6 @@
 - [⭐️ Show your support](#support)
 - [🙏 Acknowledgements](#acknowledgements)
 - [❓ FAQ (OPTIONAL)](#faq)
-- [📝 License](#license)
 
 # 📖 Blog App <a name="about-project"></a>
 
