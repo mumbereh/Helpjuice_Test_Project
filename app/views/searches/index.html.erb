@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search Articles</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="submit"] {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .top-searches-link {
+      margin-top: 20px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Search Articles</h1>
+  <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Enter your search query...">
+    <button type="submit">Search</button>
+  </form>
+  
+  <h2>Recent Searches</h2>
+  <ul id="recentSearches">
+    <% @searches.each do |search| %>
+      <li><%= search.query %> - <%= search.created_at.strftime('%Y-%m-%d %H:%M:%S') %></li>
+    <% end %>
+  </ul>
+
+  <%= link_to "View Top Searches", analytics_top_searches_path, class: "top-searches-link" %>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('searchForm');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const query = document.getElementById('searchInput').value.trim();
+        if (query !== '') {
+          const response = await fetch('/searches', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': '<%= form_authenticity_token %>'
+            },
+            body: JSON.stringify({ search: { query: query } })
+          });
+          const data = await response.json();
+          if (data.status === 'success') {
+            const newSearch = document.createElement('li');
+            newSearch.textContent = `${query} - Just now`;
+            document.getElementById('recentSearches').prepend(newSearch);
+            form.reset();
+          } else {
+            alert(data.message);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

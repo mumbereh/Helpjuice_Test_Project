@@ -2,6 +2,8 @@
 
 one:
   query: MyString
+  ip_address: MyString
 
 two:
   query: MyString
+  ip_address: MyString
