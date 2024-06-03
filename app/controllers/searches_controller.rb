@@ -7,10 +7,10 @@ class SearchesController < ApplicationController
     @search = Search.new(search_params)
     @search.ip_address = request.remote_ip
 
-    if @search.query.length >= 5 && @search.save
+    if @search.save
       render json: { status: 'success' }
     else
-      render json: { status: 'error', message: 'Query is too short. Please enter at least 5 characters.' }, status: :unprocessable_entity
+      render json: { status: 'error', message: @search.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
 
@@ -20,3 +20,4 @@ class SearchesController < ApplicationController
     params.require(:search).permit(:query)
   end
 end
+
